@@ -150,8 +150,8 @@ qemu_set_binfmts() {
 qemu_clear_binfmts() {
     cpu=$1
 
-    if [ ! -f /proc/sys/fs/binfmt_misc/qemu-${cpu}]; then
-        echo "Does not register qemu-${cpu}"
+    if [ ! -f /proc/sys/fs/binfmt_misc/qemu-${cpu} ]; then
+        echo "qemu-${cpu} not registered"
         exit 1
     fi
 
@@ -160,7 +160,7 @@ qemu_clear_binfmts() {
 
 qemu_check_linux_platform() {
     if [ $(uname) != "Linux" ]; then
-        echo "The script is only run in Linux."
+        echo "The script is only run in Linux"
         exit 1
     fi
 }
