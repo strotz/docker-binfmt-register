@@ -167,4 +167,9 @@ qemu_check_linux_platform() {
 
 qemu_check_linux_platform
 qemu_check_bintfmt_misc
-qemu_set_binfmts
+
+if [ x"$1" == x"set" ]; then
+    qemu_set_binfmts ${@:2}
+elif [ x"$1" == x"clear" ]; then
+    qemu_clear_binfmts ${@:2}
+fi
