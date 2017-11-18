@@ -144,7 +144,7 @@ qemu_set_binfmts() {
         continue
     fi
 
-    qemu_check_bintfmt_misc
+    qemu_register_interpreter
 }
 
 qemu_clear_binfmts() {
