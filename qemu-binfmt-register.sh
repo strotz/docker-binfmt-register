@@ -1,11 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
 # original: https://github.com/qemu/qemu/blob/master/scripts/qemu-binfmt-conf.sh
-
-if [ $(uname) != "Linux" ]; then
-    echo "The script is only run in Linux."
-    exit 1
-fi
 
 i386_magic='\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x03\x00'
 i386_mask='\xff\xff\xff\xff\xff\xfe\xfe\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'
@@ -106,12 +101,6 @@ qemu_check_access() {
 
 qemu_check_bintfmt_misc() {
     # load the binfmt_misc module
-    #if [ ! -d /proc/sys/fs/binfmt_misc ]; then
-      #if ! /sbin/modprobe binfmt_misc ; then
-          #exit 1
-      #fi
-    #fi
-
     if [ ! -f /proc/sys/fs/binfmt_misc/register ]; then
       if ! mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc ; then
           exit 1
@@ -132,7 +121,7 @@ qemu_register_interpreter() {
 
 qemu_set_binfmts() {
     cpu=$1
-    qemu=$2
+    qemu=/usr/local/bin/qemu-$1-static
 
     # register the interpreter for cpu except for the native one
     magic=$(eval echo \$${cpu}_magic)
@@ -160,7 +149,7 @@ qemu_clear_binfmts() {
 
 qemu_check_linux_platform() {
     if [ $(uname) != "Linux" ]; then
-        echo "The script is only run in Linux"
+        echo "the script is only run in Linux"
         exit 1
     fi
 }
@@ -169,7 +158,7 @@ qemu_check_linux_platform
 qemu_check_bintfmt_misc
 
 if [ x"$1" == x"set" ]; then
-    qemu_set_binfmts ${@:2}
+    qemu_set_binfmts $2 
 elif [ x"$1" == x"clear" ]; then
-    qemu_clear_binfmts ${@:2}
+    qemu_clear_binfmts $2 
 fi
