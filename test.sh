@@ -41,9 +41,12 @@ check_os() {
 }
 
 build_binfmt_image() {
-    docker build -t ${binfmt_image}  .
+    if [ x"$platform" == x"Linux" ]; then
+        docker build -t ${binfmt_image}  .
+    fi
 }
 
+check_os
 build_binfmt_image
 run_uname "arm" "arm32v7/ubuntu"
 run_uname "aarch64" "arm64v8/ubuntu"
