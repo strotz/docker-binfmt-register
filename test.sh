@@ -1,6 +1,6 @@
 #!/bin/bash
 
-binfmt_image="yen3/binfmt-register"
+binfmt_image="yen3/binfmt-register:latest"
 platform=$(uname)
 mount_option=""
 
@@ -42,7 +42,7 @@ check_os() {
 
 pull_binfmt_image() {
     if [ x"$platform" == x"Linux" ]; then
-        docker pull ${binfmt_image}  .
+        docker pull ${binfmt_image}
     fi
 }
 
