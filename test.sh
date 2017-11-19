@@ -1,6 +1,6 @@
 #!/bin/bash
 
-binfmt_image="yen3/test"
+binfmt_image="yen3/binfmt-register"
 platform=$(uname)
 mount_option=""
 
@@ -31,7 +31,7 @@ run_uname() {
 
     docker run -it --rm ${mount_option} ${run_image} uname -a
 
-    [ x"$platform" == x"Linux" ] && clear_binfmt$cpu
+    [ x"$platform" == x"Linux" ] && clear_binfmt $cpu
 }
 
 check_os() {
@@ -45,5 +45,5 @@ build_binfmt_image() {
 }
 
 build_binfmt_image
-run_uname "arm" "arm32v7"
-run_uname "aarch64" "arm64v8"
+run_uname "arm" "arm32v7/ubuntu"
+run_uname "aarch64" "arm64v8/ubuntu"
