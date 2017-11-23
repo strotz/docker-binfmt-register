@@ -62,7 +62,6 @@ macOSX docker has hypervisor inside.
 
 ## Build the docker image
 
-* Requirement: support multi-stage build (Docker CE v17.05 or newer)
 * Build command: `docker build -t yen3/binfmt-register:latest`
     * The source of qemu static binary is from `qemu-*` package in
       alpine:edge. The version of qemu is 2.10.

@@ -1,13 +1,13 @@
-FROM alpine:edge as builder
-RUN apk update \
-    && apk add qemu-arm qemu-aarch64
-
 FROM alpine
 
 WORKDIR /qemu
 
-COPY --from=builder /usr/bin/qemu-aarch64 ./qemu-aarch64-static
-COPY --from=builder /usr/bin/qemu-arm ./qemu-arm-static
+RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
+  --virtual .qemu-static-binaries qemu-arm qemu-aarch64 \
+  && cp -fa /usr/bin/qemu-arm /qemu/qemu-arm-static \
+  && cp -fa /usr/bin/qemu-aarch64 /qemu/qemu-aarch64-static \
+  && apk del .qemu-static-binaries
+
 COPY ./qemu-binfmt-register.sh .
 COPY ./start.sh .
 
