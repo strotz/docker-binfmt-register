@@ -70,7 +70,7 @@ macOSX docker has hypervisor inside.
   dockerfile is in `from_source/Dockerfile`. The build command is
 
     ```bash
-    docker build -t yen3/binfmt-register:laest -f from_source/Dockerfile
+    docker build -t yen3/binfmt-register:latest -f from_source/Dockerfile
     ```
 
 ## Reference
